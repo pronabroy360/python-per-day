@@ -1,4 +1,3 @@
-Sure! Below is a **comprehensive guidebook** based on the transcript you provided, which explains the sliding window approach to solve the problem **"Binary Subarrays With Sum = Goal"** — a classic variant of the **"count subarrays with sum equal to K"** problem. This guide covers the **intuition**, **approach**, **code**, and **complexity analysis**.
 
 ---
 
