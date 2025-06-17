@@ -1,0 +1,187 @@
+Absolutely! Let’s walk through **everything** you need to fully understand this problem — from intuition, to algorithm design, to dry run — all clearly and step by step.
+
+---
+
+## 🧠 **Problem: Nth Magic Number**
+
+A **magic number** is defined as a number formed by summing **unique powers of 5**, where the powers used depend on the binary representation of `N`.
+
+### 👉 For example:
+
+Let `N = 5`
+Binary of 5 = `101`
+So the bits are:
+
+```
+Position (right to left):   2   1   0
+Bits:                       1   0   1
+```
+
+Take:
+
+* bit at position 0 → 1 → include `5^1 = 5`
+* bit at position 1 → 0 → skip
+* bit at position 2 → 1 → include `5^3 = 125`
+
+So,
+
+```
+Magic Number = 5 + 125 = 130
+```
+
+---
+
+## ✨ **Intuition**
+
+Each bit in the binary representation of `N` tells us **whether to include a certain power of 5**:
+
+| Binary Bit | Power Used | Included? |
+| ---------- | ---------- | --------- |
+| `b₀`       | `5^1`      | If 1      |
+| `b₁`       | `5^2`      | If 1      |
+| `b₂`       | `5^3`      | If 1      |
+| ...        | ...        | ...       |
+
+So we:
+
+1. Look at each bit in `N`
+2. For each `1` bit at position `i`, we include `5^(i+1)` in the total
+3. Sum these powers → that’s the Nth magic number
+
+---
+
+## 🧩 **Algorithm (with Bitwise Operations)**
+
+```python
+def magicNumber(n, base):
+    result = 0 
+    while n > 0:
+        if n & 1:
+            result += base 
+        base *= 5
+        n >>= 1 
+    return result
+```
+
+### 🔄 Explanation of each step:
+
+* `n & 1`: Checks if the **last bit of n** is 1.
+* `result += base`: If it is, add the current power of 5.
+* `base *= 5`: Go to the next power of 5.
+* `n >>= 1`: Right shift `n` (drop the bit we just checked).
+
+---
+
+## 🧪 **Dry Run Example**
+
+Let’s dry run `magicNumber(5, 5)`
+
+* Input:
+
+  * `n = 5` → binary = `101`
+  * `base = 5`
+
+---
+
+### Initial values:
+
+```
+n = 5
+base = 5
+result = 0
+```
+
+---
+
+### Loop 1:
+
+```
+n = 5 → binary: 101 → last bit is 1 (n & 1 == 1)
+→ result += base = 0 + 5 = 5
+→ base *= 5 = 25
+→ n >>= 1 = 2
+```
+
+---
+
+### Loop 2:
+
+```
+n = 2 → binary: 10 → last bit is 0
+→ result unchanged
+→ base *= 5 = 125
+→ n >>= 1 = 1
+```
+
+---
+
+### Loop 3:
+
+```
+n = 1 → binary: 1 → last bit is 1
+→ result += base = 5 + 125 = 130
+→ base *= 5 = 625
+→ n >>= 1 = 0 → loop ends
+```
+
+---
+
+### ✅ Final Output:
+
+```
+result = 130
+```
+
+So the **5th magic number** is **130**.
+
+---
+
+## ⛏️ Why Use `base *= 5`?
+
+We start `base = 5`, and then each loop multiplies by 5 again:
+
+* 5 → 25 → 125 → 625 → ...
+
+So:
+
+* First bit (LSB) contributes `5^1 = 5`
+* Second bit contributes `5^2 = 25`
+* Third bit contributes `5^3 = 125`
+* and so on...
+
+---
+
+## ⏱️ Time Complexity
+
+* Each iteration processes one bit of `n`
+* Number of bits in `n` = `log₂(n)` (at most)
+
+So:
+**Time Complexity** = `O(log₂(n))`
+**Space Complexity** = `O(1)`
+
+---
+
+## ✅ Final Notes
+
+* This solution uses **bitwise operations**, which are very efficient
+* It's much faster than converting to strings (`bin(n)`), and uses less memory
+* It's flexible: you can change the `base` from 5 to anything (like 3, 7, etc.) to generate other types of "magic numbers"
+
+---
+
+## 🔁 Bonus: First Few Magic Numbers
+
+Let’s generate first few for `n = 1 to 5`:
+
+| N | Binary | Magic Number  |
+| - | ------ | ------------- |
+| 1 | 001    | 5             |
+| 2 | 010    | 25            |
+| 3 | 011    | 5 + 25 = 30   |
+| 4 | 100    | 125           |
+| 5 | 101    | 5 + 125 = 130 |
+
+---
+
+Let me know if you'd like to modify it to generate the first `k` magic numbers, or build a version using recursion or `for` loop!
