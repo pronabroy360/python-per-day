@@ -20,7 +20,7 @@ head.next = Node(2)
 head.next.next = Node(3)
 head.next.next.next = Node(4)
 
-head.next.next.next.next = Node(2)
+head.next.next.next.next = head.next
 
 if __name__ == "__main__":
     print(detect_cycle_in_loop(head))
