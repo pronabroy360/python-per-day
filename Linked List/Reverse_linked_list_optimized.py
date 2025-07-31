@@ -4,7 +4,7 @@ class Node:
         self.next = next_node
         
 def reversed_linked_list(head):
-    prev = None 
+    prev = None  ###Mistake: I had put prev as head once.
     temp = head
     
     while temp is not None:
