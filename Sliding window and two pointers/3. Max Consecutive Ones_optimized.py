@@ -12,7 +12,7 @@ def flipZero(arr, k):
             if arr[l] == 0:
                count_of_zero -= 1 
              
-            l += 1
+            l += 1                             # I once mistakenly put this l value within if loop. the answer comes fine as 1 less - result 8 coming as 7.
         
         max_len = max(max_len, r - l + 1)
     return max_len
