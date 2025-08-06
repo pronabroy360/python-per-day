@@ -10,7 +10,7 @@ def without_replacing_characters(s: str):
     
     for r in range(len(s)):
         if s[r] in setx:
-            setx.remove(s[r])
+            setx.remove(s[l])                            #once did mistake replacing r as l.
             l += 1 
         setx.add(s[r])
         r += 1
