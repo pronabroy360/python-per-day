@@ -9,13 +9,12 @@ def without_replacing_characters(s: str):
     setx = set()
     
     for r in range(len(s)):
-        if s[r] in setx:
+        while s[r] in setx:
             setx.remove(s[l])                            #once did mistake replacing r as l.
             l += 1 
         setx.add(s[r])
-        r += 1
         
-        max_len = max(max_len, r - l)
+        max_len = max(max_len, r - l+1)
     return max_len
 
 if __name__ == "__main__":
